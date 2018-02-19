@@ -92,6 +92,7 @@ public class GameState {
 		}
 		
 		System.out.print("Try: ");
+		// INDEX OUT OF BOUND EXCEPTION - fix this.
 		System.out.println(not.get((int)(Math.random()*not.size())));
 	}
 }

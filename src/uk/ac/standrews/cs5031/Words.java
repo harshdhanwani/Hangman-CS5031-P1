@@ -5,36 +5,72 @@ import java.util.ArrayList;
 
 public class Words {
 
-	static String[] words1 = { "Argyll and Bute", "Caithness",  "Kingdom of Fife",
-			            "East Lothian", "Highland", "Dumfries and Galloway",
-			            "Renfrewshire", "Scottish Borders", "Perth and Kinross" };
-	static String[] words2 = { "Scotland", "England", "Wales", "Northern Ireland", "Ireland", 
-			            "France", "Germany", "Netherlands", "Spain", "Portugal",
-			            "Belgium", "Luxembourg", "Switzerland", "Italy", "Greece" };
-	static String[] words3 = { "St Andrews", "Edinburgh", "Glasgow", "Kirkcaldy", "Perth",
-			            "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk" };
-			
-	static ArrayList<String> customwords;
-	
+	// Changed variable names, access made private.
+	private static String[] counties = { "Argyll and Bute",
+			"Caithness",
+			"Kingdom of Fife",
+			"East Lothian",
+			"Highland",
+			"Dumfries and Galloway",
+			"Renfrewshire",
+			"Scottish Borders",
+			"Perth and Kinross" };
+
+	private static String[] countries = { "Scotland",
+			"England",
+			"Wales",
+			"Northern Ireland",
+			"Ireland",
+			"France",
+			"Germany",
+			"Netherlands",
+			"Spain",
+			"Portugal",
+			"Belgium",
+			"Luxembourg",
+			"Switzerland",
+			"Italy",
+			"Greece" };
+
+	private static String[] cities = { "St Andrews",
+			"Edinburgh",
+			"Glasgow",
+			"Kirkcaldy",
+			"Perth",
+			"Dundee",
+			"Stirling",
+			"Inverness",
+			"Aberdeen",
+			"Falkirk" };
+
+	// refactored if statements in the following method
 	public static String randomWord(int category) {
-		if (category == 1)
-			return words1[(int)(Math.random()*9)];
-		if (category == 2)
-			return words2[(int)(Math.random()*15)];
-		return words3[(int)(Math.random()*10)];
+
+		if (category == 1){
+			return counties[(int)(Math.random()*9)];
+		} else if (category == 2){
+			return countries[(int)(Math.random()*15)];
+		} else {
+			return cities[(int)(Math.random()*10)];
+		}
 	}
 	
 	public static String randomWord(String wordsource) {
 		String line;
-		customwords = new ArrayList<String>();
+		// replaced <String> to <>, converted field to local variable.
+		ArrayList<String> customWordsFromList = new ArrayList<>();
 		
 		try {
 			FileReader file = new FileReader(wordsource);
 			BufferedReader reader = new BufferedReader(file);
 			while((line = reader.readLine()) != null) {
-                customwords.add(line);
+                customWordsFromList.add(line);
             }
-			return customwords.get((int)(Math.random()*customwords.size()));
+            // added reader.close(), issue reported by findbugs plugin.
+            reader.close();
+			// returns a random word from the words list
+			return customWordsFromList.get((int)(Math.random()* customWordsFromList.size()));
+
 		} catch(FileNotFoundException e) {
 			System.out.println("File error");
 			return "";
