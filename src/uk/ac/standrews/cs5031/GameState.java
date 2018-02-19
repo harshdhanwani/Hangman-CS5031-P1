@@ -36,7 +36,7 @@ public class GameState {
 	
 	void showWord() {
 		for (int i = 0; i < word.length(); ++i) {
-			if (letterGuessed.contains(word.charAt(i))) {
+			if (letterGuessed.contains(Character.toLowerCase(word.charAt(i)))) {
 				System.out.print(word.charAt(i));
 			} else {
 				System.out.print("-");
@@ -55,7 +55,7 @@ public class GameState {
 		String str = sc.next().toLowerCase();
 		
 		if (str.length() > 1) {
-			if (str==word) {
+			if (str.compareToIgnoreCase(word) == 0) {
 				letterNotGuessed.clear();
 				return true;
 			} else return false;
