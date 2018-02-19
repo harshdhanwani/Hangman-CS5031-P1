@@ -5,34 +5,38 @@ import java.util.Scanner;
 
 public class GameState {
 	public String word;
-	public int g;
-	public int wrong;
-	public int h;
-	
-	ArrayList<Character> got;
-	ArrayList<Character> not;
+	public int numberOfGuesses;
+	public int chancesLeft;
+	public int numberOfHints;
+
+	// List of letters guessed
+	ArrayList<Character> letterGuessed;
+	// List of letters letterNotGuessed guessed
+	ArrayList<Character> letterNotGuessed;
 	
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 	
-	public GameState(String target, int g, int h) {
+	public GameState(String target, int numberOfGuesses, int numberOfHints) {
 		this.word = target;
-		not = new ArrayList<Character>();
-		   got = new ArrayList<Character>();
+
+		// replaced <Character> with <>
+		letterNotGuessed = new ArrayList<>();
+		   letterGuessed = new ArrayList<>();
 		
 		for(int i = 0; i < target.length(); ++i) {
-			if (!not.contains(Character.toLowerCase(target.charAt(i))))
-			not.add(Character.toLowerCase(target.charAt(i)));
+			if (!letterNotGuessed.contains(Character.toLowerCase(target.charAt(i))))
+			letterNotGuessed.add(Character.toLowerCase(target.charAt(i)));
 		}
 		//System.out.println(missing);
 		
-		this.g = 0;
-		wrong = g;
-		this.h = h;
+		this.numberOfGuesses = 0;
+		chancesLeft = numberOfGuesses;
+		this.numberOfHints = numberOfHints;
 	}
 	
 	void showWord() {
 		for (int i = 0; i < word.length(); ++i) {
-			if (got.contains(word.charAt(i))) {
+			if (letterGuessed.contains(word.charAt(i))) {
 				System.out.print(word.charAt(i));
 			} else {
 				System.out.print("-");
@@ -52,7 +56,7 @@ public class GameState {
 		
 		if (str.length() > 1) {
 			if (str==word) {
-				not.clear();
+				letterNotGuessed.clear();
 				return true;
 			} else return false;
 		}
@@ -64,35 +68,35 @@ public class GameState {
 			return false;
 		}
 		
-		for(i = 0; i < not.size(); ++i) { // Loop over the not got
-			if (not.get(i) == letter) {
-				not.remove(i);
-				got.add(letter);
-				g++;
+		for(i = 0; i < letterNotGuessed.size(); ++i) { // Loop over the letterNotGuessed letterGuessed
+			if (letterNotGuessed.get(i) == letter) {
+				letterNotGuessed.remove(i);
+				letterGuessed.add(letter);
+				numberOfGuesses++;
 				return true;
 			}
 		}
 
-		g++; // One more guess
-		wrong--;
+		numberOfGuesses++; // One more guess
+		chancesLeft--;
 		return false;
 	}
 	
 	boolean won() {
-		if (not.size() == 0) return true; else return false;
+		if (letterNotGuessed.size() == 0) return true; else return false;
 	}
 
 	boolean lost() {
-		if (not.size() > 0 && wrong == 0) return true; else return false;
+		if (letterNotGuessed.size() > 0 && chancesLeft == 0) return true; else return false;
 	}
 
 	void hint() {
-		if (h == 0) {
+		if (numberOfHints == 0) {
 			System.out.println("No more hints allowed");
 		}
 		
 		System.out.print("Try: ");
 		// INDEX OUT OF BOUND EXCEPTION - fix this.
-		System.out.println(not.get((int)(Math.random()*not.size())));
+		System.out.println(letterNotGuessed.get((int)(Math.random()* letterNotGuessed.size())));
 	}
 }
