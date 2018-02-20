@@ -56,6 +56,45 @@ public class GameStateTest {
 	}
 
 
+	//T6 - tests to check for hints functionality - hints remaining after a few letters/words guessed and the hint option used.
+    @Test
+    public void validateHintsAndGuessesLeft(){
+	    GameState gameState = new GameState("apple", 10, 5);
+	    gameState.validateGuessedWord("hello");
+	    gameState.validateGuessedLetter('a');
+	    gameState.hint();
+	    gameState.hint();
+	    assertEquals(gameState.numberOfHints, 3);
+	    assertEquals(gameState.chancesLeft, 9);
+    }
+
+    //T7 - test to check hints functionality when hints used exceeds max hints available to the user.
+    @Test
+    public void hintsAllowedTest(){
+        GameState gameState = new GameState("apple", 10, 3);
+        gameState.hint();
+        gameState.hint();
+        gameState.hint();
+        gameState.hint();
+        assertEquals(gameState.numberOfHints, 0);
+    }
+
+    //T8 - when available letters is less than the number of hints remaining " all possible hints delivered "
+    @Test
+    public void hintsPossibleTest(){
+	    GameState gameState = new GameState("apple", 10, 3);
+	    gameState.validateGuessedLetter('p');
+	    gameState.validateGuessedLetter('l');
+	    gameState.hint();
+	    gameState.hint();
+	    gameState.hint();
+	    assertEquals(gameState.isHintsUsed(), true);
+    }
+
+
+
+
+
 
 
 

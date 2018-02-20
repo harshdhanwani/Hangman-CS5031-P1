@@ -17,8 +17,18 @@ public class GameState {
 	// List of letters letterNotGuessed guessed
 	ArrayList<Character> letterNotGuessed;
 
-HashSet<Character> hintLetters;
+    HashSet<Character> hintLetters;
     char hintLetter;
+
+    public boolean isHintsUsed() {
+        return hintsUsed;
+    }
+
+    public void setHintsUsed(boolean hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+
+    boolean hintsUsed = false;
 
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 	
@@ -148,6 +158,7 @@ HashSet<Character> hintLetters;
                 numberOfHints--;
                 lettersLeftCount--;
             } else if (hintLetters.isEmpty()){
+            hintsUsed = true;
              System.out.println(" all possible hints have been given.");
              }
              else {
