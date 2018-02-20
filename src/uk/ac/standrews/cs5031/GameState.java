@@ -33,28 +33,23 @@ HashSet<Character> hintLetters;
 			if (!letterNotGuessed.contains(Character.toLowerCase(target.charAt(i))))
 			letterNotGuessed.add(Character.toLowerCase(target.charAt(i)));
 		}
-//        System.out.println(letterNotGuessed);
 
-		for (Character ch : letterNotGuessed){
-            System.out.print(ch);
-        }
+//		for (Character ch : letterNotGuessed){
+//            System.out.print(ch);
+//        }
 
         System.out.println();
         hintLetters = new HashSet<>(letterNotGuessed);
 
 		for (int i = 0; i <letterNotGuessed.size() ; i++){
 		    hintLetters.add(Character.toLowerCase(target.charAt(i)));
-
         }
 
 
-        for (Character chaar : hintLetters){
-            System.out.print(chaar);
-        }
-//        System.out.println(hintLetters);
+//        for (Character chaar : hintLetters){
+//            System.out.print(chaar);
+//        }
         lettersLeftCount = hintLetters.size();
-
-		System.out.println(lettersLeftCount);
 		
 		this.numberOfGuesses = 0;
 		chancesLeft = numberOfGuesses;
@@ -85,13 +80,6 @@ HashSet<Character> hintLetters;
         char  letter = input.charAt(0);
 
 		if (input.length() > 1) {
-//            if (input.compareToIgnoreCase(word) == 0) {
-//                letterNotGuessed.clear();
-//                System.out.println("chances left:2 " + chancesLeft);
-////                numberOfGuesses++;
-//                return true;
-//            } else return false;
-
             return validateGuessedWord(input);
 		}
 
@@ -103,21 +91,6 @@ HashSet<Character> hintLetters;
             return validateGuessedLetter(letter);
         }
 
-//		for(int i = 0; i < letterNotGuessed.size(); i++) { // Loop over the letterNotGuessed letterGuessed
-//            if (letterNotGuessed.get(i) == letter) {
-//                letterNotGuessed.remove(i);
-//                letterGuessed.add(letter);
-//                numberOfGuesses++;
-////                chancesLeft--;
-//                System.out.println("chances left:3 " + chancesLeft);
-//
-//                return true;
-//            }
-//        }
-
-
-
-
 	}
 
 
@@ -128,11 +101,9 @@ HashSet<Character> hintLetters;
                 hintLetters.remove(letterNotGuessed.get(i));
                 letterNotGuessed.remove(i);
                 letterGuessed.add(letter);
-//                numberOfGuesses++;
                 return true;
             }
         }
-         // One more guess
         chancesLeft--;
             return false;
     }
@@ -147,8 +118,6 @@ HashSet<Character> hintLetters;
                 chancesLeft--;
                 return false;
             }
-
-
     }
 
     void setHintCondition(boolean inputVar){
@@ -169,17 +138,12 @@ HashSet<Character> hintLetters;
 
 	void hint() {
 
-		// INDEX OUT OF BOUND EXCEPTION - fix this.
-
-        System.out.println("Hint letters size : " + hintLetters.size() + "   " + hintLetters);
-
 		hintLetter = letterNotGuessed.get((int)(Math.random()* letterNotGuessed.size()));
 
         if (numberOfHints == 0) {
             System.out.println("No more hints allowed");
         } else if (hintLetters.contains(hintLetter)){
-                System.out.print("Try: ");
-                System.out.println(hintLetter + " no. of hints left : " + numberOfHints);
+                System.out.print("Try: " + hintLetter);
                 hintLetters.remove(hintLetter);
                 numberOfHints--;
                 lettersLeftCount--;
