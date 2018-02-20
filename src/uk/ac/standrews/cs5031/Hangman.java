@@ -27,16 +27,16 @@ public class Hangman {
 //		System.out.print("Pick a category:");
 
 
-		 game = new GameState(Words.randomWord(sc.nextInt()), opts.maxguesses, opts.maxhints);
+		 game = new GameState(Words.randomWord(sc.nextInt()), opts.maxGuesses, opts.maxHints);
 		}
 		else {
-			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
+			game = new GameState(Words.randomWord(opts.wordsource), opts.maxGuesses, opts.maxHints);
 		}
 
 		// while(!game.won() && !game.lost()) changed to and && changed to || for better functionality.
 		while(!(game.won() || game.lost())) {
 			game.showWord();
-			
+            System.out.println();
 			System.out.println("Guesses remaining: " + game.chancesLeft);
 			
 			 correct = game.guessLetter();

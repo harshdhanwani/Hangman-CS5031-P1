@@ -67,7 +67,7 @@ public class GameState {
 
 	}
 	
-	void showWord() {
+	String showWord() {
 		for (int i = 0; i < word.length(); i++) {
 			if (letterGuessed.contains(Character.toLowerCase(word.charAt(i)))) {
 				System.out.print(word.charAt(i));
@@ -75,8 +75,10 @@ public class GameState {
 				System.out.print("-");
 			}
 		}
-		System.out.println("");
+//		System.out.println("");
 		// System.out.println(missing);
+        return word;
+
 	}
 	
 	boolean guessLetter() {
