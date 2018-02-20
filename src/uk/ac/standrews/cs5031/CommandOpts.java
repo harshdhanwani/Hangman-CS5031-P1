@@ -9,7 +9,7 @@ public class CommandOpts {
 	
 	CommandOpts(String[] args) {
 		maxguesses = 10;
-		maxhints = 2;
+		maxhints = 5;
 		
 		wordsource = "";
 		

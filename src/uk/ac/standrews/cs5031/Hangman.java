@@ -43,9 +43,11 @@ public class Hangman {
 
 			 if (correct){
 				 System.out.println("Good Guess!!");
+			 } else if (game.getHintCondition()){
+				 System.out.println("Try again!!");
 			 } else {
-				 System.out.println("Wrong guess. Try again!");
-			 }
+                 System.out.println("Wrong guess, Try again!");
+             }
 
 			 // bad practice of if statements, extra if statement used un necessary, decreases performance.
 //			if (correct) System.out.println("Good guess!");
