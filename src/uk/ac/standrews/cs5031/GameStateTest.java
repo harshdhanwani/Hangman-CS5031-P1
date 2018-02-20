@@ -91,6 +91,28 @@ public class GameStateTest {
 	    assertEquals(gameState.isHintsUsed(), true);
     }
 
+    //T9 - game won tests
+    @Test
+    public void testGameWon(){
+        GameState gameState = new GameState("apple", 10, 5);
+        gameState.validateGuessedLetter('p');
+        gameState.validateGuessedLetter('l');
+        gameState.validateGuessedLetter('e');
+        gameState.validateGuessedWord("apple");
+        assertTrue(gameState.won());
+        assertFalse(gameState.lost());
+    }
+
+    //T10 - game lost test
+    @Test
+    public void testGameLost(){
+        GameState gameState = new GameState("apple", 3, 5);
+        gameState.validateGuessedLetter('q');
+        gameState.validateGuessedLetter('f');
+        gameState.validateGuessedLetter('b');
+        assertTrue(gameState.lost());
+        assertFalse(gameState.won());
+    }
 
 
 

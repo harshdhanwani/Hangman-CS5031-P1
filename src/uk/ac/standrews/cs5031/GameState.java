@@ -137,13 +137,14 @@ public class GameState {
     boolean getHintCondition(){
 	    return hintCondition;
     }
-	
+
+    // simplified won and lost functions.
 	boolean won() {
-		if (letterNotGuessed.size() == 0) return true; else return false;
+        return letterNotGuessed.size() == 0;
 	}
 
 	boolean lost() {
-		if (letterNotGuessed.size() > 0 && chancesLeft == 0) return true; else return false;
+        return letterNotGuessed.size() > 0 && chancesLeft == 0;
 	}
 
 	void hint() {
