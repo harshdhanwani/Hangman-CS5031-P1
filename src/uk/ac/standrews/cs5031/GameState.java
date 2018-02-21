@@ -99,10 +99,13 @@ public class GameState {
   boolean guessLetter() {
 
     setHintCondition(false);
+    String input ="";
+    while(input.isEmpty()){
 
-    System.out.print("Guess a letter or word (? for a hint): ");
+      System.out.print("Guess a letter or word (? for a hint): ");
+      input = sc.next().toLowerCase();
+    }
 
-    String input = sc.next().toLowerCase();
     char letter = input.charAt(0);
 
     if (input.length() > 1) {
