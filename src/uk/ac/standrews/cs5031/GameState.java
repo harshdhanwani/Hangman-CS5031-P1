@@ -5,20 +5,19 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 public class GameState {
-	public String word;
-	public int numberOfGuesses;
-	public int chancesLeft;
-	public int numberOfHints; // allowed hints
-	boolean hintCondition;
-    int lettersLeftCount;
+    public String word;
+    public int numberOfGuesses;
+    public int chancesLeft;
+    public int numberOfHints; // allowed hints
+    private boolean hintCondition;
+    private int lettersLeftCount;
 
-	// List of letters guessed
-	ArrayList<Character> letterGuessed;
-	// List of letters letterNotGuessed guessed
-	ArrayList<Character> letterNotGuessed;
+    // List of letters guessed
+    ArrayList<Character> letterGuessed;
+    // List of letters letterNotGuessed guessed
+    ArrayList<Character> letterNotGuessed;
 
-    HashSet<Character> hintLetters;
-    char hintLetter;
+    private HashSet<Character> hintLetters;
 
     public boolean isHintsUsed() {
         return hintsUsed;
@@ -28,21 +27,21 @@ public class GameState {
         this.hintsUsed = hintsUsed;
     }
 
-    boolean hintsUsed = false;
+    private boolean hintsUsed = false;
 
-	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
-	
-	public GameState(String target, int numberOfGuesses, int numberOfHints) {
-		this.word = target;
+    private Scanner sc = new Scanner(System.in).useDelimiter("\n");
 
-		// replaced <Character> with <>
-		letterNotGuessed = new ArrayList<>();
-		   letterGuessed = new ArrayList<>();
+    GameState(String target, int numberOfGuesses, int numberOfHints) {
+        this.word = target;
 
-		for(int i = 0; i < target.length(); i++) {
-			if (!letterNotGuessed.contains(Character.toLowerCase(target.charAt(i))))
-			letterNotGuessed.add(Character.toLowerCase(target.charAt(i)));
-		}
+        // replaced <Character> with <>
+        letterNotGuessed = new ArrayList<>();
+        letterGuessed = new ArrayList<>();
+
+        for (int i = 0; i < target.length(); i++) {
+            if (!letterNotGuessed.contains(Character.toLowerCase(target.charAt(i))))
+                letterNotGuessed.add(Character.toLowerCase(target.charAt(i)));
+        }
 
 //		for (Character ch : letterNotGuessed){
 //            System.out.print(ch);
@@ -51,8 +50,8 @@ public class GameState {
         System.out.println();
         hintLetters = new HashSet<>(letterNotGuessed);
 
-		for (int i = 0; i <letterNotGuessed.size() ; i++){
-		    hintLetters.add(Character.toLowerCase(target.charAt(i)));
+        for (int i = 0; i < letterNotGuessed.size(); i++) {
+            hintLetters.add(Character.toLowerCase(target.charAt(i)));
         }
 
 
@@ -60,55 +59,54 @@ public class GameState {
 //            System.out.print(chaar);
 //        }
         lettersLeftCount = hintLetters.size();
-		
-		this.numberOfGuesses = 0;
-		chancesLeft = numberOfGuesses;
-		this.numberOfHints = numberOfHints;
 
-	}
-	
-	String showWord() {
-		for (int i = 0; i < word.length(); i++) {
-			if (letterGuessed.contains(Character.toLowerCase(word.charAt(i)))) {
-				System.out.print(word.charAt(i));
-			} else {
-				System.out.print("-");
-			}
-		}
+        this.numberOfGuesses = 0;
+        chancesLeft = numberOfGuesses;
+        this.numberOfHints = numberOfHints;
+
+    }
+
+    String showWord() {
+        for (int i = 0; i < word.length(); i++) {
+            if (letterGuessed.contains(Character.toLowerCase(word.charAt(i)))) {
+                System.out.print(word.charAt(i));
+            } else {
+                System.out.print("-");
+            }
+        }
 //		System.out.println("");
-		// System.out.println(missing);
+        // System.out.println(missing);
         return word;
 
-	}
-	
-	boolean guessLetter() {
+    }
 
-	    setHintCondition(false);
+    boolean guessLetter() {
 
-		System.out.print("Guess a letter or word (? for a hint): ");
+        setHintCondition(false);
+
+        System.out.print("Guess a letter or word (? for a hint): ");
 
         String input = sc.next().toLowerCase();
-        System.out.println("Guess number:" + numberOfGuesses);
-        char  letter = input.charAt(0);
+        char letter = input.charAt(0);
 
-		if (input.length() > 1) {
+        if (input.length() > 1) {
             return validateGuessedWord(input);
-		}
+        }
 
-		if (letter == '?') {
-			hint();
-			setHintCondition(true);
-			return false;
-		} else {
+        if (letter == '?') {
+            hint();
+            setHintCondition(true);
+            return false;
+        } else {
             return validateGuessedLetter(letter);
         }
 
-	}
+    }
 
 
-	boolean validateGuessedLetter(char letter){
+    boolean validateGuessedLetter(char letter) {
         numberOfGuesses++;
-        for(int i = 0; i < letterNotGuessed.size(); i++) { // Loop over the letterNotGuessed letterGuessed
+        for (int i = 0; i < letterNotGuessed.size(); i++) { // Loop over the letterNotGuessed letterGuessed
             if (letterNotGuessed.get(i) == letter) {
                 hintLetters.remove(letterNotGuessed.get(i));
                 letterNotGuessed.remove(i);
@@ -117,56 +115,55 @@ public class GameState {
             }
         }
         chancesLeft--;
-            return false;
+        return false;
     }
 
-    boolean validateGuessedWord(String input){
+    boolean validateGuessedWord(String input) {
         numberOfGuesses++; // One more guess
 
-            if (input.compareToIgnoreCase(word) == 0) {
-                letterNotGuessed.clear();
-                return true;
-            } else {
-                chancesLeft--;
-                return false;
-            }
+        if (input.compareToIgnoreCase(word) == 0) {
+            letterNotGuessed.clear();
+            return true;
+        } else {
+            chancesLeft--;
+            return false;
+        }
     }
 
-    void setHintCondition(boolean inputVar){
-	    hintCondition = inputVar;
+    private void setHintCondition(boolean inputVar) {
+        hintCondition = inputVar;
     }
 
-    boolean getHintCondition(){
-	    return hintCondition;
+    boolean getHintCondition() {
+        return hintCondition;
     }
 
     // simplified won and lost functions.
-	boolean won() {
+    boolean won() {
         return letterNotGuessed.size() == 0;
-	}
+    }
 
-	boolean lost() {
+    boolean lost() {
         return letterNotGuessed.size() > 0 && chancesLeft == 0;
-	}
+    }
 
-	void hint() {
+    void hint() {
 
-		hintLetter = letterNotGuessed.get((int)(Math.random()* letterNotGuessed.size()));
+        char hintLetter = letterNotGuessed.get((int) (Math.random() * letterNotGuessed.size()));
 
         if (numberOfHints == 0) {
-            System.out.println("No more hints allowed");
-        } else if (hintLetters.contains(hintLetter)){
-                System.out.print("Try: " + hintLetter);
-                hintLetters.remove(hintLetter);
-                numberOfHints--;
-                lettersLeftCount--;
-            } else if (hintLetters.isEmpty()){
+            System.out.println("No more hints allowed!");
+        } else if (hintLetters.contains(hintLetter)) {
+            System.out.println("Try: " + hintLetter);
+            hintLetters.remove(hintLetter);
+            numberOfHints--;
+            lettersLeftCount--;
+        } else if (hintLetters.isEmpty()) {
             hintsUsed = true;
-             System.out.println(" all possible hints have been given.");
-             }
-             else {
-             hint();
-         }
-
+            System.out.println("All possible hints have been given!");
+        } else {
+            hint();
         }
+
+    }
 }
