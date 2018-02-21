@@ -43,7 +43,12 @@ public class Words {
     "Aberdeen",
     "Falkirk"};
 
-  // refactored if statements in the following method
+  /**
+   * Method returning a random word from the respective array list
+   *
+   * @param category category in terms of countries, counties or cities.
+   * @return returns a random word
+   */
   public static String randomWord(int category) {
 
     if (category == 1) {
@@ -55,6 +60,12 @@ public class Words {
     }
   }
 
+  /**
+   * Method returning custom random word from the respective array list.
+   *
+   * @param wordsource the word source entered/selected by the user
+   * @return returns a custom word. Returns Error if file not found or if any other exception is found.
+   */
   public static String randomWord(String wordsource) {
     String line;
     // replaced <String> to <>, converted field to local variable.

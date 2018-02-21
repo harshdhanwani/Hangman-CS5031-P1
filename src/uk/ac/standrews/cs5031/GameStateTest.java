@@ -6,7 +6,9 @@ import org.junit.Test;
 
 public class GameStateTest {
 
-  // T1
+  /**
+   * Test case to test the functionality of the game with the respective parameters.
+   */
   @Test
   public void gameStateTest() {
     GameState gameState = new GameState("apple", 10, 5);
@@ -18,7 +20,9 @@ public class GameStateTest {
     assertEquals(gameState.numberOfHints, 5);
   }
 
-  // T2 - test to validate letter guessed.
+  /**
+   * Test case to test the validation of letter guessed
+   */
   @Test
   public void validateGuessLetterTest() {
     GameState gameState = new GameState("apple", 10, 5);
@@ -26,7 +30,9 @@ public class GameStateTest {
     assertTrue(gameState.validateGuessedLetter('p'));
   }
 
-  // T3 - test to validate word guessed.
+  /**
+   * Test case to test the validation of word guessed.
+   */
   @Test
   public void validateGuessWordTest() {
     GameState gameState = new GameState("apple", 10, 5);
@@ -34,7 +40,9 @@ public class GameStateTest {
     assertTrue(gameState.validateGuessedWord("apple"));
   }
 
-  // T4 - validate remaining guesses after letter is entered ( one correct guess)
+  /**
+   * Test case to test the validation of number of remaining guesses after a letter is entered.
+   */
   @Test
   public void validateRemainingGuesses() {
     GameState gameState = new GameState("apple", 10, 5);
@@ -44,7 +52,9 @@ public class GameStateTest {
     assertEquals(gameState.chancesLeft, 8);
   }
 
-  // T5 - validate remaining guesses after a word is entered (one correct word guess)
+  /**
+   * Test case to test the validation of number of remaining guesses after a word is entered.
+   */
   @Test
   public void validateRemainingGuessesWord() {
     GameState gameState = new GameState("apple", 10, 5);
@@ -56,7 +66,10 @@ public class GameStateTest {
   }
 
 
-  //T6 - tests to check for hints functionality - hints remaining after a few letters/words guessed and the hint option used.
+  /**
+   * Test case to test the validation of hints functionality, i.e. hints remaining after a few letters/words guessed
+   * and the hints option used.
+   */
   @Test
   public void validateHintsAndGuessesLeft() {
     GameState gameState = new GameState("apple", 10, 5);
@@ -68,7 +81,9 @@ public class GameStateTest {
     assertEquals(gameState.chancesLeft, 9);
   }
 
-  //T7 - test to check hints functionality when hints used exceeds max hints available to the user.
+  /**
+   * Test case to test the validation of hints functionality when user exceeds maximum hints allowed to the user.
+   */
   @Test
   public void hintsAllowedTest() {
     GameState gameState = new GameState("apple", 10, 3);
@@ -79,7 +94,10 @@ public class GameStateTest {
     assertEquals(gameState.numberOfHints, 0);
   }
 
-  //T8 - when available letters is less than the number of hints remaining " all possible hints delivered "
+  /**
+   * Test case to test the validation of hints if the number of letters remaining in the word is less than the number
+   * of hints remaining to the user.
+   */
   @Test
   public void hintsPossibleTest() {
     GameState gameState = new GameState("apple", 10, 3);
@@ -91,7 +109,9 @@ public class GameStateTest {
     assertEquals(gameState.isHintsUsed(), true);
   }
 
-  //T9 - game won tests
+  /**
+   * Test case to test the validation of the game status i.e. if the game is won.
+   */
   @Test
   public void testGameWon() {
     GameState gameState = new GameState("apple", 10, 5);
@@ -103,7 +123,9 @@ public class GameStateTest {
     assertFalse(gameState.lost());
   }
 
-  //T10 - game lost test
+  /**
+   * Test case to test the validation of the game status i.e. if the game is lost.
+   */
   @Test
   public void testGameLost() {
     GameState gameState = new GameState("apple", 3, 5);

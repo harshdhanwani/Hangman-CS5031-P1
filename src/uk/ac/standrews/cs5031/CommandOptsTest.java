@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class CommandOptsTest {
+  /**
+   * Test case to test the arguments entered via the command line.
+   */
   @Test
   public void optionsTest() {
     String[] args = {"--guesses", "12", "--hints", "5", "words.txt"};
@@ -14,6 +17,9 @@ public class CommandOptsTest {
     assertEquals(opts.wordsource, "words.txt");
   }
 
+  /**
+   * Test case to test the state if some arguments are missing while running the application via the command line.
+   */
   // if some arguments are missing
   @Test
   public void missingOptionsTest() {
@@ -25,7 +31,9 @@ public class CommandOptsTest {
     assertEquals(opts.wordsource, "words.txt");
   }
 
-  // if all arguments are missing
+  /**
+   * Test case to test the state if no arguments are entered. Default values then considered.
+   */
   @Test
   public void noOptionsTest() {
     String[] args = {};

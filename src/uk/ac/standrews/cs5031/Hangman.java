@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Hangman {
 
+  /**
+   * Main function that would start the game with respective interface and game state declarations.
+   *
+   * @param args arguments
+   */
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     GameState game;
@@ -12,7 +17,6 @@ public class Hangman {
 
     opts = new CommandOpts(args);
 
-    // Strings cannot be checked/compared using if (opts.wordsource == ""), .equals should be used instead or .isEmpty() function.
     if (opts.wordsource.isEmpty()) {
 
       System.out.println("1. Counties \n" +
@@ -20,19 +24,12 @@ public class Hangman {
         "3. Cities \n" +
         "Pick a Category: ");
 
-      // Concatenating strings is a better option than spanning multiple println statements. Check reference: https://softwareengineering.stackexchange.com/questions/246534/how-bad-is-it-calling-println-often-than-concatenating-strings-together-and-ca
-//		System.out.println("  1. Counties");
-//		System.out.println("  2. Countries");
-//		System.out.println("  3. Cities");
-//		System.out.print("Pick a category:");
-
-
       game = new GameState(Words.randomWord(sc.nextInt()), opts.maxGuesses, opts.maxHints);
     } else {
       game = new GameState(Words.randomWord(opts.wordsource), opts.maxGuesses, opts.maxHints);
     }
 
-    // while(!game.won() && !game.lost()) changed to and && changed to || for better functionality.
+    // Logic to display interface depending on same status.
     while (!(game.won() || game.lost())) {
       game.showWord();
       System.out.println();
@@ -50,17 +47,13 @@ public class Hangman {
         System.out.println("");
       }
 
-      // bad practice of if statements, extra if statement used un necessary, decreases performance.
-//			if (correct) System.out.println("Good guess!");
-//			if (!correct) System.out.println("Wrong guess!");
     }
 
+    // Logic to display interface depending on game lost or won.
     if (game.won()) {
       System.out.println("Congratulations! You've won the game. \n" + "The word you guessed was - " + game.word + "\n"
         + "You took " + game.numberOfGuesses + " guesses.");
 
-//			System.out.println("Well done!");
-//			System.out.println("You took " + game.numberOfGuesses + " guesses");
     } else {
       System.out.println("Sorry, You lost! The word was " + game.word);
     }
