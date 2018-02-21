@@ -45,5 +45,4 @@ public class CommandOptsTest {
     assertEquals(opts.wordsource, "");
   }
 
-
 }

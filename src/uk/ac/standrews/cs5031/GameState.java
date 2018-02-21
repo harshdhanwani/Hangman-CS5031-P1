@@ -215,6 +215,5 @@ public class GameState {
     } else {
       hint();
     }
-
   }
 }

@@ -46,7 +46,6 @@ public class Hangman {
         System.out.println("Wrong guess, Try again!");
         System.out.println("");
       }
-
     }
 
     // Logic to display interface depending on game lost or won.
